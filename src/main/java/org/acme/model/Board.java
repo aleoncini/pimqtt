@@ -47,14 +47,28 @@ public class Board {
                 
                 logger.info("[RASPI Board] creating pins...");
 
-                pins[0] = pi4j.dout().create(1, "Pin_0");
+                var config = DigitalOutput.newConfigBuilder(pi4j)
+                                    .id("PIN_00")
+                                    .name("Switch termo salone")
+                                    .address(1)
+                                    .shutdown(DigitalState.LOW)
+                                    .initial(DigitalState.LOW)
+                                    .provider("pigpio-digital-output");
+                pins[0] = pi4j.create(config);
                 logger.info("[RASPI Board] OUTPUT: " + pins[0].description() + " - " + pins[0].state().value());
-                pins[1] = pi4j.dout().create(3, "Pin_1");
-                logger.info("[RASPI Board] OUTPUT: " + pins[1].description() + " - " + pins[1].state().value());
-                pins[2] = pi4j.dout().create(5, "Pin_2");
-                logger.info("[RASPI Board] OUTPUT: " + pins[2].description() + " - " + pins[2].state().value());
-                pins[3] = pi4j.dout().create(7, "Pin_3");
-                logger.info("[RASPI Board] OUTPUT: " + pins[3].description() + " - " + pins[3].state().value());
+
+                config.name("This switch is not currently used").address(3);
+                pins[1] = pi4j.create(config);
+
+                config.name("Switch kebabbaro").address(5);
+                pins[2] = pi4j.create(config);
+
+                config.name("Switch lucine terrazzo").address(7);
+                pins[3] = pi4j.create(config);
+
+                logger.info("[RASPI Board] OUTPUT: " + pins[1].description() + "    " + pins[1].state().value());
+                logger.info("[RASPI Board] OUTPUT: " + pins[2].description() + "    " + pins[2].state().value());
+                logger.info("[RASPI Board] OUTPUT: " + pins[3].description() + "    " + pins[3].state().value());
 
                 logger.info("[RASPI Board] Board initialized");
                 isReady = true;
@@ -67,7 +81,7 @@ public class Board {
                                     .shutdown(DigitalState.LOW)
                                     .initial(DigitalState.LOW)
                                     .provider("pigpio-digital-output");
-                var led = pi4j.create(ledConfig);  
+                DigitalOutput led = pi4j.create(ledConfig);  
                 logger.info("[RASPI Board] LED: " + led.description());
                 led.high();
                 logger.info("[RASPI Board] LED: " + led.description());
