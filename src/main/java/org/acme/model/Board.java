@@ -50,20 +50,20 @@ public class Board {
                 var config = DigitalOutput.newConfigBuilder(pi4j)
                                     .id("PIN_00")
                                     .name("Switch termo salone")
-                                    .address(1)
+                                    .address(18)
                                     .shutdown(DigitalState.LOW)
                                     .initial(DigitalState.LOW)
                                     .provider("pigpio-digital-output");
-                //pins[0] = pi4j.create(config);
-                //logger.info("[RASPI Board] OUTPUT: " + pins[0].description() + " - " + pins[0].state().value());
+                pins[0] = pi4j.create(config);
+                logger.info("[RASPI Board] OUTPUT: " + pins[0].description() + "    " + pins[0].state().value());
 
-                config.id("PIN_01").name("This switch is not currently used").address(3);
+                config.id("PIN_01").name("This switch is not currently used").address(22);
                 pins[1] = pi4j.create(config);
 
-                config.id("PIN_02").name("Switch kebabbaro").address(5);
+                config.id("PIN_02").name("Switch kebabbaro").address(24);
                 pins[2] = pi4j.create(config);
 
-                config.id("PIN_03").name("Switch lucine terrazzo").address(7);
+                config.id("PIN_03").name("Switch lucine terrazzo").address(4);
                 pins[3] = pi4j.create(config);
 
                 logger.info("[RASPI Board] OUTPUT: " + pins[1].description() + "    " + pins[1].state().value());
