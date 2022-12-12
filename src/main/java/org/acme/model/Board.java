@@ -54,8 +54,8 @@ public class Board {
                                     .shutdown(DigitalState.LOW)
                                     .initial(DigitalState.LOW)
                                     .provider("pigpio-digital-output");
-                pins[0] = pi4j.create(config);
-                logger.info("[RASPI Board] OUTPUT: " + pins[0].description() + " - " + pins[0].state().value());
+                //pins[0] = pi4j.create(config);
+                //logger.info("[RASPI Board] OUTPUT: " + pins[0].description() + " - " + pins[0].state().value());
 
                 config.id("PIN_01").name("This switch is not currently used").address(3);
                 pins[1] = pi4j.create(config);
