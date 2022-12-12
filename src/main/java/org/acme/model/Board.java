@@ -57,13 +57,13 @@ public class Board {
                 pins[0] = pi4j.create(config);
                 logger.info("[RASPI Board] OUTPUT: " + pins[0].description() + " - " + pins[0].state().value());
 
-                config.name("This switch is not currently used").address(3);
+                config.id("PIN_01").name("This switch is not currently used").address(3);
                 pins[1] = pi4j.create(config);
 
-                config.name("Switch kebabbaro").address(5);
+                config.id("PIN_02").name("Switch kebabbaro").address(5);
                 pins[2] = pi4j.create(config);
 
-                config.name("Switch lucine terrazzo").address(7);
+                config.id("PIN_03").name("Switch lucine terrazzo").address(7);
                 pins[3] = pi4j.create(config);
 
                 logger.info("[RASPI Board] OUTPUT: " + pins[1].description() + "    " + pins[1].state().value());
@@ -72,20 +72,6 @@ public class Board {
 
                 logger.info("[RASPI Board] Board initialized");
                 isReady = true;
-
-                logger.info("[RASPI Board] ------------------------------------------------------------------------------");
-                var ledConfig = DigitalOutput.newConfigBuilder(pi4j)
-                                    .id("led")
-                                    .name("LED Flasher")
-                                    .address(22)
-                                    .shutdown(DigitalState.LOW)
-                                    .initial(DigitalState.LOW)
-                                    .provider("pigpio-digital-output");
-                DigitalOutput led = pi4j.create(ledConfig);  
-                logger.info("[RASPI Board] LED: " + led.description());
-                led.high();
-                logger.info("[RASPI Board] LED: " + led.description());
-                logger.info("[RASPI Board] ------------------------------------------------------------------------------");
             } catch (Exception e) {
                 e.printStackTrace();
                 // TODO: handle exception
