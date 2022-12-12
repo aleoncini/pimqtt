@@ -21,7 +21,7 @@ import com.pi4j.provider.Provider;
 @Named("board")
 public class Board {
 
-    private Context pi4j;
+    //private Context pi4j;
     private boolean isReady = false;
     private DigitalOutput[] pins = new DigitalOutput[4];
 
@@ -30,7 +30,7 @@ public class Board {
     public void init(){
         if(isReady == false){
             logger.info("[RASPI Board] Board initializing...");
-            pi4j = Pi4J.newAutoContext();
+            var pi4j = Pi4J.newAutoContext();
             try {                
 
                 Platforms platforms = pi4j.platforms();
@@ -58,6 +58,20 @@ public class Board {
 
                 logger.info("[RASPI Board] Board initialized");
                 isReady = true;
+
+                logger.info("[RASPI Board] ------------------------------------------------------------------------------");
+                var ledConfig = DigitalOutput.newConfigBuilder(pi4j)
+                                    .id("led")
+                                    .name("LED Flasher")
+                                    .address(22)
+                                    .shutdown(DigitalState.LOW)
+                                    .initial(DigitalState.LOW)
+                                    .provider("pigpio-digital-output");
+                var led = pi4j.create(ledConfig);  
+                logger.info("[RASPI Board] LED: " + led.description());
+                led.high();
+                logger.info("[RASPI Board] LED: " + led.description());
+                logger.info("[RASPI Board] ------------------------------------------------------------------------------");
             } catch (Exception e) {
                 e.printStackTrace();
                 // TODO: handle exception
